@@ -1,0 +1,10 @@
+Catatan Rilis 20.05, sbb:
+1. #4 Pisahkan halaman pengaturan basis data dgn proses impor.
+2. Database default menggunakan dataawal opensid.
+3. Tambahkan pilihan kosongkan database awal.
+4. Perbaikan dan sederhanakan beberapa penulisan script.
+5. #13 Jalankan migrasi setelah proses instalasi selesai.
+6. #11 Buat .htaccess setelah proses instalasi selesai.
+7. #12 User yg diinput akan menjadi user default (bukan lg admin/sid304).
+8. #8 Perbaikan input data desa saat instalasi.
+9. #10 Gunakan source opensid.
