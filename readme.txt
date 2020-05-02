@@ -4,7 +4,7 @@
 
 ## Persiapan
 - Siapkan OpenSID (https://github.com/OpenSID/OpenSID)
-- Siapkan OpenSID-Installer (https://github.com/afa28/OpenSID-Installer)
+- Siapkan Installer (https://github.com/OpenSID/installer)
 
 ## Database
 Database yang digunakan adalah contoh_data_awal_20200501.sql yang berupa contoh data awal yg diikutkan pada setiap rilis. Adapun perubahan yang dilakukan adalah perubahan struktur database yang diambil dari hasil export phpmyadmin (agar menyesuaikan dengan instller).
