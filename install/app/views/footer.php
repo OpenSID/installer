@@ -1,8 +1,19 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 				<hr>	
 				<div class="form-group">
-					<input type="hidden" name="act" value="<?= $tujuan?>">
-					<button type="submit" class="btn btn-primary btn-block btn-flat"><?= $aksi?></button>
+					<?php
+						if(@$server['hasError']){
+					?>
+						<input type="hidden" name="act" value="cek_server">
+						<button type="submit" class="btn btn-primary btn-block btn-flat">Refresh</button>
+					<?php
+						}else{
+					?>
+						<input type="hidden" name="act" value="<?= $tujuan?>">
+						<button type="submit" class="btn btn-primary btn-block btn-flat"><?= $aksi?></button>
+					<?php
+						}
+					?>
 				</div>
 			</form>
 		</div>		
