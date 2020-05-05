@@ -1,6 +1,6 @@
 # OpenSID Installer
 
-![welcome](https://user-images.githubusercontent.com/57283157/80867836-8028fa00-8cc0-11ea-986c-142f153f02da.PNG)
+![welcome](https://user-images.githubusercontent.com/57283157/80909272-26244500-8d51-11ea-9f77-018ade7b2ab3.png)
 
 ## Persiapan
 - Siapkan OpenSID (https://github.com/OpenSID/OpenSID)
@@ -23,6 +23,7 @@ Menggunakan database lain :
 4. Ikuti arahan yang ada di form instalasi, lakukan input data jika dibutuhkan.
 5. Setelah proses instalasi selesai, anda akan di arahkan ke halaman login admin.
 
+Instalasi lengkap (https://github.com/OpenSID/installer/wiki/Panduan-Installer-OpenSID) 
 
 ## Catatan
 - Gunakan database yg baru/kosong (tidak ada data maupun tabel).
