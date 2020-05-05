@@ -5,7 +5,7 @@
 
         <div class="checkbox">
           <label>
-            <input type="checkbox"> Kosongkan Dataawal <!--<code>Nama database</code>--></p>
+            <input type="checkbox"> Kosongkan Dataawal
           </label>
         </div>
 

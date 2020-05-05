@@ -71,6 +71,28 @@ function delete_folder($path)
 	return true;
 }
 
+function toBytes($val)
+{
+	if (is_numeric($val)) {
+		return $val;
+	}
+
+	$val = trim($val);
+	$val = (int) $val;
+	switch (strtolower($val[strlen($val) - 1])) {
+		case 'g':
+			$val *= 1024;
+			// continue
+		case 'm':
+			$val *= 1024;
+			// continue
+		case 'k':
+			$val *= 1024;
+	}
+
+	return $val;
+}
+
 //folder : desa/config/database.php
 function cdb($conf)
 {
@@ -577,8 +599,7 @@ EOS;
 
 function input($val)
 {
-	$CI =& get_instance();
+	$CI = &get_instance();
 
 	return $CI->input->post($val);
 }
-
