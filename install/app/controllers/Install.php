@@ -75,7 +75,7 @@ class Install extends MY_Controller
 							$data = array(
 								'judul' 	=> 'pengaturan profil desa',
 								'tujuan' 	=> 'ke_desa',
-								'aksi' 		=> 'Selesai'
+								'aksi' 		=> 'Lanjutkan'
 							);
 							$this->render_view('set_data_desa', $data);
 						}
