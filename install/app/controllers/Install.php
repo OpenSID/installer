@@ -8,8 +8,8 @@ class Install extends MY_Controller
 	{
 		parent::__construct();
 		$this->load->library('session');
-		ini_set('max_execution_time', 0); 
-		ini_set('memory_limit', '-1'); 
+		ini_set('max_execution_time', 0);
+		ini_set('memory_limit', '-1');
 		date_default_timezone_set('Asia/Jakarta');
 	}
 
@@ -17,14 +17,14 @@ class Install extends MY_Controller
 	{
 		$act = input('act');
 
-		switch ($act) 
+		switch ($act)
 		{
 			case 'ke_basisdata': // Langkah 2 / Pengaturan Database
 				$data = array(
-						'judul' 	=> 'pengaturan basisdata', 
-						'tujuan' 	=> 'ke_impor', 
-						'aksi' 		=> 'Hubungkan'
-						);
+					'judul' 	=> 'pengaturan basisdata',
+					'tujuan' 	=> 'ke_impor',
+					'aksi' 		=> 'Hubungkan'
+				);
 				$this->render_view('set_database', $data);
 
 				break;
@@ -37,7 +37,7 @@ class Install extends MY_Controller
 
 				$dbconfig 	= $this->_db_config();
 				$db_obj 	= $this->load->database($dbconfig, TRUE);
-		
+
 				if (!$db_obj->conn_id)
 				{
 					$this->_error();
@@ -47,10 +47,10 @@ class Install extends MY_Controller
 					$this->load->database();
 
 					$data = array(
-							'judul' 	=> 'impor basisdata', 
-							'tujuan' 	=> 'proses_impor',
-							'aksi' 		=> 'Impor'
-							);
+						'judul' 	=> 'impor basisdata',
+						'tujuan' 	=> 'proses_impor',
+						'aksi' 		=> 'Impor'
+					);
 					$this->render_view('set_impor', $data);
 				}
 				break;
@@ -58,7 +58,7 @@ class Install extends MY_Controller
 			case 'proses_impor': // Langkah 4 / Proses Impor
 				$dbconfig 	= $this->_db_config();
 				$db_obj 	= $this->load->database($dbconfig, TRUE);
-		
+
 				if (!$db_obj->conn_id)
 				{
 					$this->_error();
@@ -69,32 +69,32 @@ class Install extends MY_Controller
 
 					if ($this->install_model->import_tables(FCPATH . "install/sql/opensid.sql") === TRUE)
 					{
-						$this->_kosongkan_db(); // Kosongkan basisdata
+							$this->_kosongkan_db(); // Kosongkan basisdata
 
-						$this->db->close(); 
-						$data = array(
-									'judul' 	=> 'pengaturan profil desa', 
-									'tujuan' 	=> 'ke_desa', 
-									'aksi' 		=> 'Selesai'
-									);
-						$this->render_view('set_data_desa', $data);
+							$this->db->close();
+							$data = array(
+								'judul' 	=> 'pengaturan profil desa',
+								'tujuan' 	=> 'ke_desa',
+								'aksi' 		=> 'Selesai'
+							);
+							$this->render_view('set_data_desa', $data);
+						}
+						else
+						{
+							$data = array(
+								'judul' 	=> 'impor basisdata',
+								'tujuan' 	=> 'proses_impor',
+								'aksi' 		=> 'Impor'
+							);
+							$this->render_view('set_impor', $data);
+						}
 					}
-					else
-					{
-						$data = array(
-									'judul' 	=> 'impor basisdata', 
-									'tujuan' 	=> 'proses_impor', 
-									'aksi' 		=> 'Impor'
-									);
-						$this->render_view('set_impor', $data);	
-					}
-				}
-				break;
+					break;
 
 			case 'ke_desa': // Langkah 5 / Pengaturan Data Desa
 				$dbconfig 	= $this->_db_config();
 				$db_obj 	= $this->load->database($dbconfig, TRUE);
-		
+
 				if (!$db_obj->conn_id)
 				{
 					$this->_error();
@@ -112,40 +112,40 @@ class Install extends MY_Controller
 
 					// Tambah config desa
 					$data = array(
-							'id'				=> 1,
-							'nama_desa'			=> input('desa'),
-							'kode_desa'			=> '',
-							'nama_kepala_desa'	=> '',
-							'nip_kepala_desa'	=> '',
-							'kode_pos'			=> '0000',
-							'nama_kecamatan'	=> input('kec'),
-							'kode_kecamatan'	=> '',
-							'nama_kepala_camat'	=> '',
-							'nip_kepala_camat'	=> '',
-							'nama_kabupaten'	=> input('kab'),
-							'kode_kabupaten'	=> '',
-							'nama_propinsi'		=> input('prov'),
-							'kode_propinsi'		=> '',
-							'website'			=> base_url()
-							);
+						'id'				=> 1,
+						'nama_desa'			=> input('desa'),
+						'kode_desa'			=> '',
+						'nama_kepala_desa'	=> '',
+						'nip_kepala_desa'	=> '',
+						'kode_pos'			=> '0000',
+						'nama_kecamatan'	=> input('kec'),
+						'kode_kecamatan'	=> '',
+						'nama_kepala_camat'	=> '',
+						'nip_kepala_camat'	=> '',
+						'nama_kabupaten'	=> input('kab'),
+						'kode_kabupaten'	=> '',
+						'nama_propinsi'		=> input('prov'),
+						'kode_propinsi'		=> '',
+						'website'			=> base_url()
+					);
 
 					$this->install_model->tambah('config', $data);
 
 					// Setting aplikasi
 					$id = 21; // key = timezone
 					$data = array(
-							'value' 	=> input('timezone')
-							);
+						'value' 	=> input('timezone')
+					);
 
 					$this->install_model->ubah('setting_aplikasi', $id, $data);
 
 					$this->db->close();
 
 					$data = array(
-								'judul' 	=> 'pengaturan pengguna', 
-								'tujuan' 	=> 'ke_pengguna', 
-								'aksi' 		=> 'Selesai'
-								);
+						'judul' 	=> 'pengaturan pengguna',
+						'tujuan' 	=> 'ke_pengguna',
+						'aksi' 		=> 'Selesai'
+					);
 					$this->render_view('set_user', $data);
 				}
 				break;
@@ -153,7 +153,7 @@ class Install extends MY_Controller
 			case 'ke_pengguna': // Langkah 5 / Pengaturan Pengguna
 				$dbconfig 	= $this->_db_config();
 				$db_obj 	= $this->load->database($dbconfig, TRUE);
-		
+
 				if (!$db_obj->conn_id)
 				{
 					$this->_error();
@@ -169,22 +169,22 @@ class Install extends MY_Controller
 					$this->db->trans_off();
 					$this->db->trans_begin();
 
-					// Kosongkan tabel user
+						// Kosongkan tabel user
 					$this->install_model->kosong('user');
 
-					// Tambah pengguna
+						// Tambah pengguna
 					$data = array(
-							'id'  		=> 1,
-							'username'  => input('user'),
-							'password'  => $pwHash,
-							'id_grup'	=> 1,
-							'email'		=> 'contoh@gmail.com',
-							'last_login'=> date('Y-m-d H:i:s'),
-							'active'    => '1',
-							'nama'      => 'Administrator',
-							'foto'		=> 'favicon.png',
-							'session'   => '',
-							);
+						'id'  		=> 1,
+						'username'  => input('user'),
+						'password'  => $pwHash,
+						'id_grup'	=> 1,
+						'email'		=> 'contoh@gmail.com',
+						'last_login'=> date('Y-m-d H:i:s'),
+						'active'    => '1',
+						'nama'      => 'Administrator',
+						'foto'		=> 'favicon.png',
+						'session'   => '',
+					);
 
 					$this->install_model->tambah('user', $data);
 
@@ -195,9 +195,9 @@ class Install extends MY_Controller
 					else
 					{
 						$this->db->trans_commit();
-							
+
 						$this->salin_contoh();
-							
+
 						$this->_create_file_config();
 
 						$this->_create_file_db_config(
@@ -207,7 +207,7 @@ class Install extends MY_Controller
 								'db_name' 	=> DB_NAME,
 								'db_user' 	=> DB_USER,
 								'db_pass' 	=> DB_PASS
-								)
+							)
 						);
 
 						$this->db->close();
@@ -215,20 +215,20 @@ class Install extends MY_Controller
 						$this->rebuild_index();
 						$this->_create_file_htaccess();
 						@delete_folder(FCPATH . 'install');
-						redirect(base_url('database/migrasi_db_cri')); // Lakukan migrasi setelah login
-						$this->session->sess_destroy();
+							redirect(base_url('database/migrasi_db_cri')); // Lakukan migrasi setelah login
+							$this->session->sess_destroy();
+						}
 					}
-				}
-				break;
+					break;
 
 				default: // Langkah 1 / Welcome
 					$this->_clear();
 
 					$data = array(
-								'judul' 	=> 'selamat datang',
-								'tujuan' 	=> 'ke_basisdata', 
-								'aksi' 		=> 'Mulai'
-								);
+						'judul' 	=> 'selamat datang',
+						'tujuan' 	=> 'ke_basisdata',
+						'aksi' 		=> 'Mulai'
+					);
 					$this->render_view('welcome', $data);
 					break;
 		}
@@ -240,7 +240,7 @@ class Install extends MY_Controller
 		define('DB_PORT', $_SESSION['db_port']);
 		define('DB_NAME', $_SESSION['db_name']);
 		define('DB_USER', $_SESSION['db_user']);
-		define('DB_PASS', $_SESSION['db_pass']);		
+		define('DB_PASS', $_SESSION['db_pass']);
 
 		$config = array(
 			'dsn'	   => 'mysql:host=' . DB_HOST . ';port=' . DB_PORT . ';dbname=' . DB_NAME . ';charset=utf8;',
@@ -264,7 +264,7 @@ class Install extends MY_Controller
 			'save_queries' => FALSE
 		);
 
-		return $config;	
+		return $config;
 	}
 
 	protected function _create_file_config()
@@ -291,7 +291,6 @@ class Install extends MY_Controller
 		$content 	= htaccess();
 		$file 		= FCPATH . '.htaccess';
 		write_file($file, $content);
-		
 	}
 
 	protected function rebuild_index()
@@ -328,10 +327,10 @@ class Install extends MY_Controller
 	private function _error()
 	{
 		$data = array(
-					'judul' 	=> 'gagal koneksi basisdata', 
-					'tujuan' 	=> 'ke_basisdata', 
-					'aksi'		=> 'Coba lagi'
-					);
+			'judul' 	=> 'gagal koneksi basisdata',
+			'tujuan' 	=> 'ke_basisdata',
+			'aksi'		=> 'Coba lagi'
+		);
 		$this->render_view('disconnect', $data);
 	}
 
@@ -345,9 +344,9 @@ class Install extends MY_Controller
 	private function _kosongkan_db()
 	{
 		if (empty(input('kosongkan')))
-        {
-            $this->install_model->kosongkan_db();
-        }
+		{
+			$this->install_model->kosongkan_db();
+		}
 	}
 
-}
+	}

@@ -7,19 +7,28 @@ define("VERSION", '20.05');
 // Hapus fungsi ini jika installer sudah digabungkan dengan opensid
 function xcopy($src, $dest)
 {
-	foreach (scandir($src) as $file) {
+	foreach (scandir($src) as $file)
+	{
 		$srcfile  = rtrim($src, '/') . '/' . $file;
 		$destfile = rtrim($dest, '/') . '/' . $file;
-		if (!is_readable($srcfile)) {
+
+		if (!is_readable($srcfile))
+		{
 			continue;
 		}
-		if ($file != '.' && $file != '..') {
-			if (is_dir($srcfile)) {
-				if (!file_exists($destfile)) {
+
+		if ($file != '.' && $file != '..')
+		{
+			if (is_dir($srcfile))
+			{
+				if (!file_exists($destfile))
+				{
 					mkdir($destfile);
 				}
 				xcopy($srcfile, $destfile);
-			} else {
+			}
+			else
+			{
 				copy($srcfile, $destfile);
 			}
 		}
@@ -28,7 +37,8 @@ function xcopy($src, $dest)
 
 function delete_folder($path)
 {
-	if (!file_exists($path)) {
+	if (!file_exists($path))
+	{
 		return false;
 	}
 
@@ -51,16 +61,21 @@ function delete_folder($path)
 		$stack[] = $entry;
 		$dh = opendir($entry);
 
-		while (false !== $child = readdir($dh)) {
-			if ($child === '.' || $child === '..') {
+		while (false !== $child = readdir($dh))
+		{
+			if ($child === '.' || $child === '..')
+			{
 				continue;
 			}
 
 			$child = $entry . DIRECTORY_SEPARATOR . $child;
 
-			if (is_dir($child) && !is_link($child)) {
+			if (is_dir($child) && !is_link($child))
+			{
 				$stack[] = $child;
-			} else {
+			}
+			else
+			{
 				unlink($child);
 			}
 		}
@@ -84,30 +99,31 @@ function cdb($conf)
 	$build_version = VERSION;
 
 	$content = <<<EOS
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+	<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-/* -------------------------------------------------------------------------
-|  Konfigurasi database dalam file ini menggantikan konfigurasi di file asli
-|  SID di donjo-app/config/database.php.
-|  
-|  Letakkan username, password dan database sebetulnya di file ini.
-|  File ini JANGAN di-commit ke GIT. TAMBAHKAN di .gitignore
-|  -------------------------------------------------------------------------
+	/* -------------------------------------------------------------------------
+	|  Konfigurasi database dalam file ini menggantikan konfigurasi di file asli
+	|  SID di donjo-app/config/database.php.
+	|
+	|  Letakkan username, password dan database sebetulnya di file ini.
+	|  File ini JANGAN di-commit ke GIT. TAMBAHKAN di .gitignore
+	|  -------------------------------------------------------------------------
 
-|  Data Konfigurasi MySQL yang disesuaikan
+	|  Data Konfigurasi MySQL yang disesuaikan
 */
 
-\$db['default']['hostname'] = '{$db_host}';
-\$db['default']['username'] = '{$db_user}';
-\$db['default']['password'] = '{$db_pass}';
-\$db['default']['database'] = '{$db_name}';
+	\$db['default']['hostname'] = '{$db_host}';
+	\$db['default']['username'] = '{$db_user}';
+	\$db['default']['password'] = '{$db_pass}';
+	\$db['default']['database'] = '{$db_name}';
 
-/*
-| Untuk setting koneksi database 'Strict Mode'
-| Sesuaikan dengan ketentuan hosting
-*/ 
-\$db['default']['stricton'] = TRUE;
-EOS;
+	/*
+	| Untuk setting koneksi database 'Strict Mode'
+	| Sesuaikan dengan ketentuan hosting
+*/
+	\$db['default']['stricton'] = TRUE;
+	EOS;
+
 	return $content;
 }
 
@@ -117,19 +133,19 @@ function cfile()
 	$date = date('d-M-Y h:i:s');
 	$build_version = VERSION;
 	$content = <<<EOS
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+	<?php defined('BASEPATH') OR exit('No direct script access allowed');
 // ----------------------------------------------------------------------------
 // Konfigurasi aplikasi dalam berkas ini merupakan setting konfigurasi tambahan
 // SID. Letakkan setting konfigurasi ini di desa/config/config.php.
 // ----------------------------------------------------------------------------
 
-/*
+	/*
 	Uncomment jika situs ini untuk demo. Pada demo, user admin tidak bisa dihapus
 	dan username/password tidak bisa diubah
 */
 // \$config['demo'] = 'y';
 
-/*
+	/*
 	Password untuk File Manager yg digunakan pada form isian artikel.
 	Gunakan password yg sulit ditebak manusia maupun program otomatis.
 */
@@ -139,7 +155,7 @@ function cfile()
 // dapat membuat artikel berisi video yang aktif ditampilkan di Web.
 // Misalnya, ganti dengan id = 1 jika ingin membuat pengguna admin sebagai pengguna terpecaya.
 	\$config['user_admin'] = 1;
-/*
+	/*
 	Setting untuk tampilkan data Covid-19. Untuk menyembunyikan ganti menjadi nilai 0;
 	Untuk menampilkan data provinsi, gunakan setting 'provinsi_covid'.
 	Kode provinsi sesuai dengan yg di http://pusatkrisis.kemkes.go.id/daftar-kode-provinsi
@@ -147,7 +163,8 @@ function cfile()
 	\$config['covid_data'] = 1;
 	\$config['provinsi_covid'] = 51; // kode provinsi. Comment baris ini untuk menampilkan data Indonesia
 	\$config['covid_desa'] = 1; // Tampilkan status COVID-19 dari data OpenSID desa
-EOS;
+	EOS;
+
 	return $content;
 }
 
@@ -157,8 +174,8 @@ function cindex()
 	$date = date('d-M-Y h:i:s');
 	$build_version = VERSION;
 	$content = <<<EOS
-<?php
-/**
+	<?php
+	/**
  * CodeIgniter
  *
  * An open source application development framework for PHP
@@ -195,7 +212,7 @@ function cindex()
  * @filesource
  */
 
-/*
+	/*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT
  *---------------------------------------------------------------
@@ -214,7 +231,7 @@ function cindex()
  */
 	define('ENVIRONMENT', isset(\$_SERVER['CI_ENV']) ? \$_SERVER['CI_ENV'] : 'production');
 
-/*
+	/*
  *---------------------------------------------------------------
  * ERROR REPORTING
  *---------------------------------------------------------------
@@ -222,15 +239,15 @@ function cindex()
  * Different environments will require different levels of error reporting.
  * By default development will show errors but testing and live will hide them.
  */
-switch (ENVIRONMENT)
-{
-	case 'development':
+	switch (ENVIRONMENT)
+	{
+		case 'development':
 		error_reporting(-1);
 		ini_set('display_errors', 1);
-	break;
+		break;
 
-	case 'testing':
-	case 'production':
+		case 'testing':
+		case 'production':
 		ini_set('display_errors', 0);
 		if (version_compare(PHP_VERSION, '5.3', '>='))
 		{
@@ -240,15 +257,15 @@ switch (ENVIRONMENT)
 		{
 			error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_USER_NOTICE);
 		}
-	break;
+		break;
 
-	default:
+		default:
 		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
 		echo 'The application environment is not set correctly.';
 		exit(1); // EXIT_ERROR
-}
+	}
 
-/*
+	/*
  *---------------------------------------------------------------
  * SYSTEM DIRECTORY NAME
  *---------------------------------------------------------------
@@ -258,7 +275,7 @@ switch (ENVIRONMENT)
  */
 	\$system_path = 'system';
 
-/*
+	/*
  *---------------------------------------------------------------
  * APPLICATION DIRECTORY NAME
  *---------------------------------------------------------------
@@ -275,7 +292,7 @@ switch (ENVIRONMENT)
  */
 	\$application_folder = 'donjo-app';
 
-/*
+	/*
  *---------------------------------------------------------------
  * VIEW DIRECTORY NAME
  *---------------------------------------------------------------
@@ -291,7 +308,7 @@ switch (ENVIRONMENT)
 	\$view_folder = '';
 
 
-/*
+	/*
  * --------------------------------------------------------------------
  * DEFAULT CONTROLLER
  * --------------------------------------------------------------------
@@ -321,7 +338,7 @@ switch (ENVIRONMENT)
 	// \$routing['function']	= '';
 
 
-/*
+	/*
  * -------------------------------------------------------------------
  *  CUSTOM CONFIG VALUES
  * -------------------------------------------------------------------
@@ -343,7 +360,7 @@ switch (ENVIRONMENT)
 // END OF USER CONFIGURABLE SETTINGS.  DO NOT EDIT BELOW THIS LINE
 // --------------------------------------------------------------------
 
-/*
+	/*
  * ---------------------------------------------------------------
  *  Resolve the system path for increased reliability
  * ---------------------------------------------------------------
@@ -363,9 +380,9 @@ switch (ENVIRONMENT)
 	{
 		// Ensure there's a trailing slash
 		\$system_path = strtr(
-			rtrim(\$system_path, '/\\\'),
-			'/\\\',
-			DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
+		rtrim(\$system_path, '/\\\'),
+		'/\\\',
+		DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
 		).DIRECTORY_SEPARATOR;
 	}
 
@@ -377,7 +394,7 @@ switch (ENVIRONMENT)
 		exit(3); // EXIT_CONFIG
 	}
 
-/*
+	/*
  * -------------------------------------------------------------------
  *  Now that we know the path, set the main path constants
  * -------------------------------------------------------------------
@@ -404,18 +421,18 @@ switch (ENVIRONMENT)
 		else
 		{
 			\$application_folder = strtr(
-				rtrim(\$application_folder, '/\\\'),
-				'/\\\',
-				DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
+			rtrim(\$application_folder, '/\\\'),
+			'/\\\',
+			DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
 			);
 		}
 	}
 	elseif (is_dir(BASEPATH.\$application_folder.DIRECTORY_SEPARATOR))
 	{
 		\$application_folder = BASEPATH.strtr(
-			trim(\$application_folder, '/\\\'),
-			'/\\\',
-			DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
+		trim(\$application_folder, '/\\\'),
+		'/\\\',
+		DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
 		);
 	}
 	else
@@ -441,18 +458,18 @@ switch (ENVIRONMENT)
 		else
 		{
 			\$view_folder = strtr(
-				rtrim(\$view_folder, '/\\\'),
-				'/\\\',
-				DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
+			rtrim(\$view_folder, '/\\\'),
+			'/\\\',
+			DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
 			);
 		}
 	}
 	elseif (is_dir(APPPATH.\$view_folder.DIRECTORY_SEPARATOR))
 	{
 		\$view_folder = APPPATH.strtr(
-			trim(\$view_folder, '/\\\'),
-			'/\\\',
-			DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
+		trim(\$view_folder, '/\\\'),
+		'/\\\',
+		DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
 		);
 	}
 	else
@@ -463,7 +480,7 @@ switch (ENVIRONMENT)
 	}
 
 	define('VIEWPATH', \$view_folder.DIRECTORY_SEPARATOR);
-/**
+	/**
  * https://stackoverflow.com/questions/11792268/how-to-set-proper-codeigniter-base-url
  * Define APP_URL Dynamically
  * Write this at the bottom of index.php
@@ -472,16 +489,17 @@ switch (ENVIRONMENT)
  */
 	define('APP_URL', (\$_SERVER['SERVER_PORT'] == 443 ? 'https' : 'http') . "://{\$_SERVER['HTTP_HOST']}".str_replace(basename(\$_SERVER['SCRIPT_NAME']),"",\$_SERVER['SCRIPT_NAME']));
 
-/*
-/*
+	/*
+	/*
  * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE
  * --------------------------------------------------------------------
  *
  * And away we go...
  */
-require_once BASEPATH.'core/CodeIgniter.php';
-EOS;
+	require_once BASEPATH.'core/CodeIgniter.php';
+	EOS;
+
 	return $content;
 }
 
@@ -490,57 +508,58 @@ function license()
 {
 	$license = '
 # OpenSID
-OpenSID (https://github.com/OpenSID/OpenSID) adalah Sistem Informasi Desa (SID) yang sengaja dibuat supaya terbuka dan dapat dikembangkan bersama-sama oleh komunitas peduli SID.
+	OpenSID (https://github.com/OpenSID/OpenSID) adalah Sistem Informasi Desa (SID) yang sengaja dibuat supaya terbuka dan dapat dikembangkan bersama-sama oleh komunitas peduli SID.
 
-SID diharapkan dapat membantu pemerintah desa dalam beberapa hal berikut:
-- kantor desa lebih efisien dan efektif
-- pemerintah desa lebih transparan dan akuntabel
-- layanan publik lebih baik
-- warga mendapat akses lebih baik pada informasi desa
+	SID diharapkan dapat membantu pemerintah desa dalam beberapa hal berikut:
+	- kantor desa lebih efisien dan efektif
+	- pemerintah desa lebih transparan dan akuntabel
+	- layanan publik lebih baik
+	- warga mendapat akses lebih baik pada informasi desa
 
-OpenSID diharapkan dapat turut membantu agar ke semua 74ribu+ desa di Indonesia dapat menerapkan sistem informasi untuk memajukan desanya.
+	OpenSID diharapkan dapat turut membantu agar ke semua 74ribu+ desa di Indonesia dapat menerapkan sistem informasi untuk memajukan desanya.
 
-Strategi pengembangan OpenSID adalah untuk:
-- memudahkan pengguna untuk mendapatkan SID secara bebas, tanpa proses birokrasi
-- memudahkan pengguna menyerap rilis SID baru
-- memungkinkan pegiat SID untuk membuat kontribusi langsung pada _source code_ aplikasi SID
+	Strategi pengembangan OpenSID adalah untuk:
+	- memudahkan pengguna untuk mendapatkan SID secara bebas, tanpa proses birokrasi
+	- memudahkan pengguna menyerap rilis SID baru
+	- memungkinkan pegiat SID untuk membuat kontribusi langsung pada _source code_ aplikasi SID
 
-OpenSID dikelola di Github untuk:
-- merekam semua perubahan yg dibuat
-- memungkinkan kembali ke revisi sebelumnya, apabila diperlukan
-- memudahkan kolaborasi antar pegiat SID dan juga dengan desa dampingan dalam mengembangkan SID
-- backup online _source code_ SID yg dapat diaskses setiap saat
+	OpenSID dikelola di Github untuk:
+	- merekam semua perubahan yg dibuat
+	- memungkinkan kembali ke revisi sebelumnya, apabila diperlukan
+	- memudahkan kolaborasi antar pegiat SID dan juga dengan desa dampingan dalam mengembangkan SID
+	- backup online _source code_ SID yg dapat diaskses setiap saat
 
 # PEDOMAN PENGGUNAAN
-Pedoman pemasangan dan penggunaan OpenSID dapat dilihat di wiki OpenSID di https://github.com/opensid/opensid/wiki.
+	Pedoman pemasangan dan penggunaan OpenSID dapat dilihat di wiki OpenSID di https://github.com/opensid/opensid/wiki.
 
 # OpenSID v SID CRI
-OpenSID dikembangkan sejak Mei 2016 bermula dari versi SID CRI 3.04 yang diperoleh dari Andi Anwar.
+	OpenSID dikembangkan sejak Mei 2016 bermula dari versi SID CRI 3.04 yang diperoleh dari Andi Anwar.
 
-SID CRI terakhir yang telah digabung dengan OpenSID adalah SID 3.10 yang di-share oleh anggota https://www.facebook.com/groups/OpenSID/ pada tanggal 15 Pebruari 2017. OpenSID akan terus menggabung versi baru yang mungkin sewaktu-waktu dirilis oleh CRI.
+	SID CRI terakhir yang telah digabung dengan OpenSID adalah SID 3.10 yang di-share oleh anggota https://www.facebook.com/groups/OpenSID/ pada tanggal 15 Pebruari 2017. OpenSID akan terus menggabung versi baru yang mungkin sewaktu-waktu dirilis oleh CRI.
 
-Untuk melihat perbedaan antara OpenSID dan SID-CRI, silakan klik [Tanya-Jawab OpenSID vs SID-CRI](https://github.com/OpenSID/OpenSID/wiki/Tanya-Jawab-OpenSID-vs-SID-CRI).
+	Untuk melihat perbedaan antara OpenSID dan SID-CRI, silakan klik [Tanya-Jawab OpenSID vs SID-CRI](https://github.com/OpenSID/OpenSID/wiki/Tanya-Jawab-OpenSID-vs-SID-CRI).
 
 # HAK CIPTA, SYARAT, DAN KETENTUAN
-Aplikasi Sistem Informasi Desa (SID) dibangun dan dikembangkan pada awalnya oleh COMBINE Resource Institution sejak tahun 2009. Pemegang hak cipta aslinya adalah Combine Resource Institution (http://lumbungkomunitas.net/).
+	Aplikasi Sistem Informasi Desa (SID) dibangun dan dikembangkan pada awalnya oleh COMBINE Resource Institution sejak tahun 2009. Pemegang hak cipta aslinya adalah Combine Resource Institution (http://lumbungkomunitas.net/).
 
-Sistem ini dikelola dengan merujuk pada lisensi GNU General Public License Version 3 (http://www.gnu.org/licenses/gpl.html).
+	Sistem ini dikelola dengan merujuk pada lisensi GNU General Public License Version 3 (http://www.gnu.org/licenses/gpl.html).
 
-Versi di Github ini dikembangkan oleh OpenSID sejak Mei 2016, dan bebas untuk dimanfaatkan dan dikembangkan oleh semua desa.
+	Versi di Github ini dikembangkan oleh OpenSID sejak Mei 2016, dan bebas untuk dimanfaatkan dan dikembangkan oleh semua desa.
 
 # DEMO
-Demo aplikasi OpenSID dapat dilihat di http://demo.opensid.my.id. Versi yang terlihat di demo itu adalah rilis terkini. Versi beta dapat diujicoba di https://beta.opensid.my.id sebelum dirilis resmi pada bulan berikutnya.
+	Demo aplikasi OpenSID dapat dilihat di http://demo.opensid.my.id. Versi yang terlihat di demo itu adalah rilis terkini. Versi beta dapat diujicoba di https://beta.opensid.my.id sebelum dirilis resmi pada bulan berikutnya.
 
-Modul administrasi OpenSID demo dapat diaskses pada http://demo.opensid.my.id/index.php/siteman. Masukkan Username = admin dan Password = sid304.
+	Modul administrasi OpenSID demo dapat diaskses pada http://demo.opensid.my.id/index.php/siteman. Masukkan Username = admin dan Password = sid304.
 
 # FORUM
-Anda dapat bergabung dengan [Forum Pengguna dan Pegiat OpenSID](https://www.facebook.com/groups/opensid) di Facebook atau di [Telegram](http://bit.ly/2DG6Beb). Kedua group ini bersifat informal dan merupakan tempat berbagi informasi dan saling membantu menggunakan dan mengembangkan aplikasi OpenSID.
+	Anda dapat bergabung dengan [Forum Pengguna dan Pegiat OpenSID](https://www.facebook.com/groups/opensid) di Facebook atau di [Telegram](http://bit.ly/2DG6Beb). Kedua group ini bersifat informal dan merupakan tempat berbagi informasi dan saling membantu menggunakan dan mengembangkan aplikasi OpenSID.
 
 # KEMBANGKAN BERSAMA
-Pengguna dan pegiat SID dapat melaporkan dan mendaftarkan masalah/usulan/permintaan perbaikan atau pengembangan OpenSID di https://github.com/opensid/opensid/issues. Issues ini merupakan daftar tugas bagi pegiat OpenSID untuk mengembangkan OpenSID berdasarkan masukan dari komunitas SID.
+	Pengguna dan pegiat SID dapat melaporkan dan mendaftarkan masalah/usulan/permintaan perbaikan atau pengembangan OpenSID di https://github.com/opensid/opensid/issues. Issues ini merupakan daftar tugas bagi pegiat OpenSID untuk mengembangkan OpenSID berdasarkan masukan dari komunitas SID.
 
-Komunitas SID juga bebas, bahkan diajak, untuk turut membuat kontribusi pada panduan OpenSID di https://github.com/OpenSID/OpenSID/wiki, dan pada script OpenSID di (https://github.com/OpenSID/OpenSID).
-';
+	Komunitas SID juga bebas, bahkan diajak, untuk turut membuat kontribusi pada panduan OpenSID di https://github.com/OpenSID/OpenSID/wiki, dan pada script OpenSID di (https://github.com/OpenSID/OpenSID).
+	';
+
 	return $license;
 }
 
@@ -554,30 +573,31 @@ function htaccess()
 # Untuk menggunakan fitur ini, pastikan konfigurasi apache di server SID
 # mengizinkan penggunaan .htaccess
 #============
-RewriteEngine on
-RewriteBase /
+	RewriteEngine on
+	RewriteBase /
 # Apabila menggunakan sub-domain atau sub-folder gunakan bentuk berikut
 # RewriteBase /nama-sub-folder/
 
 # Prevent index dirs
-RewriteCond $1 
-RewriteRule ^(.*)$ index.php/$1 [L,QSA]
+	RewriteCond $1
+	RewriteRule ^(.*)$ index.php/$1 [L,QSA]
 
 # General dirs / files
-RewriteCond $1 !^(index\.php|resources|robots\.txt)
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php/$1 [L,QSA]
+	RewriteCond $1 !^(index\.php|resources|robots\.txt)
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^(.*)$ index.php/$1 [L,QSA]
 
 # Protec Folder Not Index
-Options All -Indexes
-EOS;
+	Options All -Indexes
+	EOS;
+
 	return $content;
 }
 
 function input($val)
 {
-	$CI =& get_instance();
+	$CI=& get_instance();
 
 	return $CI->input->post($val);
 }
