@@ -413,15 +413,24 @@ class Install extends MY_Controller
 
 	protected function getWebServer()
     {
-        if (stristr($_SERVER['SERVER_SOFTWARE'], 'Apache') !== false) {
+		if (stristr($_SERVER['SERVER_SOFTWARE'], 'Apache') !== false) 
+		{
             return 'Apache';
-        } elseif (stristr($_SERVER['SERVER_SOFTWARE'], 'LiteSpeed') !== false) {
+		} 
+		elseif (stristr($_SERVER['SERVER_SOFTWARE'], 'LiteSpeed') !== false) 
+		{
             return 'Lite Speed';
-        } elseif (stristr($_SERVER['SERVER_SOFTWARE'], 'Nginx') !== false) {
+		} 
+		elseif (stristr($_SERVER['SERVER_SOFTWARE'], 'Nginx') !== false) 
+		{
             return 'Nginx';
-        } elseif (stristr($_SERVER['SERVER_SOFTWARE'], 'lighttpd') !== false) {
+		} 
+		elseif (stristr($_SERVER['SERVER_SOFTWARE'], 'lighttpd') !== false) 
+		{
             return 'lighttpd';
-        } elseif (stristr($_SERVER['SERVER_SOFTWARE'], 'IIS') !== false) {
+		} 
+		elseif (stristr($_SERVER['SERVER_SOFTWARE'], 'IIS') !== false)
+		{
             return 'Microsoft IIS';
         }
 

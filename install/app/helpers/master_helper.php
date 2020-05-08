@@ -599,7 +599,7 @@ EOS;
 
 function input($val)
 {
-	$CI = &get_instance();
+	$CI =& get_instance();
 
 	return $CI->input->post($val);
 }
