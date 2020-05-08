@@ -1,4 +1,4 @@
-# OpenSID Installer
+<h1 align="center">SOpenSID Installer</h1>
 
 ![welcome](https://user-images.githubusercontent.com/57283157/80909272-26244500-8d51-11ea-9f77-018ade7b2ab3.png)
 
