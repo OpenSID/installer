@@ -1,5 +1,4 @@
-<?php
-defined('BASEPATH') or exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 // Hapus fungsi ini jika installer sudah digabungkan dengan opensid
 define("VERSION", '20.05');
@@ -7,19 +6,27 @@ define("VERSION", '20.05');
 // Hapus fungsi ini jika installer sudah digabungkan dengan opensid
 function xcopy($src, $dest)
 {
-	foreach (scandir($src) as $file) {
+	foreach (scandir($src) as $file)
+	{
 		$srcfile  = rtrim($src, '/') . '/' . $file;
 		$destfile = rtrim($dest, '/') . '/' . $file;
+
 		if (!is_readable($srcfile)) {
 			continue;
 		}
-		if ($file != '.' && $file != '..') {
-			if (is_dir($srcfile)) {
-				if (!file_exists($destfile)) {
+
+		if ($file != '.' && $file != '..')
+		{
+			if (is_dir($srcfile))
+			{
+				if (!file_exists($destfile))
+				{
 					mkdir($destfile);
 				}
 				xcopy($srcfile, $destfile);
-			} else {
+			}
+			else
+			{
 				copy($srcfile, $destfile);
 			}
 		}
@@ -28,39 +35,49 @@ function xcopy($src, $dest)
 
 function delete_folder($path)
 {
-	if (!file_exists($path)) {
+	if (!file_exists($path))
+	{
 		return false;
 	}
 
-	if (is_file($path) || is_link($path)) {
+	if (is_file($path) || is_link($path))
+	{
 		return unlink($path);
 	}
 
 	$stack = array($path);
 
-	while ($entry = array_pop($stack)) {
-		if (is_link($entry)) {
+	while ($entry = array_pop($stack))
+	{
+		if (is_link($entry))
+		{
 			unlink($entry);
 			continue;
 		}
 
-		if (@rmdir($entry)) {
+		if (@rmdir($entry))
+		{
 			continue;
 		}
 
 		$stack[] = $entry;
 		$dh = opendir($entry);
 
-		while (false !== $child = readdir($dh)) {
-			if ($child === '.' || $child === '..') {
+		while (false !== $child = readdir($dh))
+		{
+			if ($child === '.' || $child === '..')
+			{
 				continue;
 			}
 
 			$child = $entry . DIRECTORY_SEPARATOR . $child;
 
-			if (is_dir($child) && !is_link($child)) {
+			if (is_dir($child) && !is_link($child))
+			{
 				$stack[] = $child;
-			} else {
+			}
+			else
+			{
 				unlink($child);
 			}
 		}
@@ -73,13 +90,15 @@ function delete_folder($path)
 
 function toBytes($val)
 {
-	if (is_numeric($val)) {
+	if (is_numeric($val))
+	{
 		return $val;
 	}
 
 	$val = trim($val);
 	$val = (int) $val;
-	switch (strtolower($val[strlen($val) - 1])) {
+	switch (strtolower($val[strlen($val) - 1]))
+	{
 		case 'g':
 			$val *= 1024;
 			// continue
@@ -111,7 +130,7 @@ function cdb($conf)
 /* -------------------------------------------------------------------------
 |  Konfigurasi database dalam file ini menggantikan konfigurasi di file asli
 |  SID di donjo-app/config/database.php.
-|  
+|
 |  Letakkan username, password dan database sebetulnya di file ini.
 |  File ini JANGAN di-commit ke GIT. TAMBAHKAN di .gitignore
 |  -------------------------------------------------------------------------
@@ -127,7 +146,7 @@ function cdb($conf)
 /*
 | Untuk setting koneksi database 'Strict Mode'
 | Sesuaikan dengan ketentuan hosting
-*/ 
+*/
 \$db['default']['stricton'] = TRUE;
 EOS;
 	return $content;
@@ -582,7 +601,7 @@ RewriteBase /
 # RewriteBase /nama-sub-folder/
 
 # Prevent index dirs
-RewriteCond $1 
+RewriteCond $1
 RewriteRule ^(.*)$ index.php/$1 [L,QSA]
 
 # General dirs / files

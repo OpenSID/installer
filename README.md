@@ -1,36 +1,9 @@
-# OpenSID Installer
+<h1 align="center">Installer</h1>
 
 ![welcome](https://user-images.githubusercontent.com/57283157/80909272-26244500-8d51-11ea-9f77-018ade7b2ab3.png)
 
-## Persiapan
-- Siapkan OpenSID (https://github.com/OpenSID/OpenSID)
-- Siapkan Installer (https://github.com/OpenSID/installer)
-
-## Database
-Database yang digunakan adalah contoh_data_awal_20200501.sql yang berupa contoh data awal yg diikutkan pada setiap rilis. Adapun perubahan yang dilakukan adalah perubahan struktur database yang diambil dari hasil export phpmyadmin (agar menyesuaikan dengan instller).
-
-Menggunakan database lain :
-1. Siapkan database yang akan digunakan (database merupakan hasil export dari phpmyadmin).
-2. Ganti nama file database menjadi "opensid.sql".
-3. Salin file database ke dalam folder "intall/sql" (Jika muncul peringatan timpa file, silahkan setujui).
-
-## Cara Penggunaan
-1. Extract OpenSID dan OpenSID-Intaller pada folder (Jika muncul peringatan timpa file, silahkan setujui):
-   - localhost : folder project (../htdoc/nama_project)
-   - hosting : public_html / wwww
-2. Buat database baru.
-3. Buka website anda (contoh http://localhost/opensid/).
-4. Ikuti arahan yang ada di form instalasi, lakukan input data jika dibutuhkan.
-5. Setelah proses instalasi selesai, anda akan di arahkan ke halaman login admin.
-
-Instalasi lengkap (https://github.com/OpenSID/installer/wiki/Panduan-Installer-OpenSID) 
-
-## Catatan
-- Gunakan database yg baru/kosong (tidak ada data maupun tabel).
-- Centang 'kosongkan dataawal' pada proses import jika ingin menggunakan data kosong.
-- Proses import database akan memakan waktu beberapa menit tergantung database dan hsoting yg anda digunakan.
-- Semua proses yg dibutuhkan opensid (sperti pembuatan folder desa) sudah include pada installer.
-- Setelah proses instalasi selesai semua file.folder yang berhubungan dengan instalasi akan otomatis terhapus.
+## Panduan
+Panduan lengkap menggunakan script instller ini dapat dilihat di (https://github.com/OpenSID/installer/wiki/Panduan-Installer-OpenSID)
 
 ## Epilog
 Jika repository ini dirasa bermanfaat, mohon kesediaannya memberi bintang ⭐

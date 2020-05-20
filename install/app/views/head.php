@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title><?= ucwords($judul)?> | Instalasi OpenSID</title>
-    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+		<meta charset="UTF-8">
+		<title><?= ucwords($judul)?> | Instalasi OpenSID</title>
+		<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 	<!-- Favicon -->
 	<link rel="shortcut icon" href="<?= base_url()?>favicon.ico" />
 	<!-- Bootstrap 3.3.7 -->
